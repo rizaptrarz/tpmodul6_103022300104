@@ -1,48 +1,48 @@
 ﻿using System;
+using System.Diagnostics;
 
-public class SayaTubeVideo
+namespace tpmodul6_103022300104
 {
-    private int id;
-    private string title;
-    private int playCount;
-
-    public SayaTubeVideo(string title)
+    class SayaTubeVideo
     {
-        if (string.IsNullOrEmpty(title) || title.Length > 100)
+        private int id;
+        private string title;
+        private int playCount;
+
+        public SayaTubeVideo(string title)
         {
-            throw new ArgumentException("Judul video tidak boleh kosong dan maksimal 100 karakter.");
+            Debug.Assert(!string.IsNullOrEmpty(title) && title.Length <= 100, "Judul video harus tidak null dan maksimal 100 karakter.");
+            Random rand = new Random();
+            this.id = rand.Next(10000, 99999);
+            this.title = title;
+            this.playCount = 0;
         }
 
-        Random random = new Random();
-        this.id = random.Next(10000, 99999);
-        this.title = title;
-        this.playCount = 0;
-    }
-
-    public void IncreasePlayCount(int count)
-    {
-        if (count > 10000000)
+        public void IncreasePlayCount(int count)
         {
-            throw new ArgumentException("Penambahan play count maksimal 10.000.000 per panggilan.");
-        }
-
-        try
-        {
-            checked
+            if (count > 5000000) 
             {
-                this.playCount += count;
+                throw new ArgumentException("Jumlah play count maksimal adalah 5.000.000 per panggilan.");
+            }
+
+            try
+            {
+                checked
+                {
+                    this.playCount += count;
+                }
+            }
+            catch (OverflowException)
+            {
+                Console.WriteLine("Error: Play count melebihi batas maksimum integer.");
             }
         }
-        catch (OverflowException)
-        {
-            Console.WriteLine("Error: Overflow terjadi pada penambahan play count.");
-        }
-    }
 
-    public void PrintVideoDetails()
-    {
-        Console.WriteLine("ID: " + this.id);
-        Console.WriteLine("Title: " + this.title);
-        Console.WriteLine("Play Count: " + this.playCount);
+        public void PrintVideoDetails()
+        {
+            Console.WriteLine($"Video ID: {id}");
+            Console.WriteLine($"Title: {title}");
+            Console.WriteLine($"Play Count: {playCount}");
+        }
     }
 }

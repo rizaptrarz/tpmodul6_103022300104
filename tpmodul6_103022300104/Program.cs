@@ -1,26 +1,14 @@
-﻿using System;
+﻿using tpmodul6_103022300104;
 
 class Program
 {
-    static void Main(string[] args)
+    static void Main()
     {
-        SayaTubeVideo videos = new SayaTubeVideo("Tutorial Design By Contract - Riza Muhammad Putra");
+        SayaTubeVideo video = new SayaTubeVideo("Tutorial Design By Contract – Riza Muhammad Putra");
+        video.PrintVideoDetails();
 
-        for (int i = 0; i < 3; i++)
-        {
-            videos.IncreasePlayCount(10000000);
-            videos.PrintVideoDetails();
-        }
-
-        try
-        {
-            SayaTubeVideo video = new SayaTubeVideo("Tutorial Design By Contract - Riza Muhammad Putra");
-            video.IncreasePlayCount(10000001);
-            video.PrintVideoDetails();
-        }
-        catch (ArgumentException ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
+        video.IncreasePlayCount(3000); 
+        video.IncreasePlayCount(7000); 
+        video.PrintVideoDetails();
     }
 }
